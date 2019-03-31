@@ -1,0 +1,14 @@
+C:\Projects\OhmCalculator\OhmCalculator.api\bin\Debug\netcoreapp2.2\OhmCalculator.api.deps.json
+C:\Projects\OhmCalculator\OhmCalculator.api\bin\Debug\netcoreapp2.2\OhmCalculator.api.runtimeconfig.json
+C:\Projects\OhmCalculator\OhmCalculator.api\bin\Debug\netcoreapp2.2\OhmCalculator.api.runtimeconfig.dev.json
+C:\Projects\OhmCalculator\OhmCalculator.api\bin\Debug\netcoreapp2.2\OhmCalculator.api.dll
+C:\Projects\OhmCalculator\OhmCalculator.api\bin\Debug\netcoreapp2.2\OhmCalculator.api.pdb
+C:\Projects\OhmCalculator\OhmCalculator.api\obj\Debug\netcoreapp2.2\OhmCalculator.api.csprojAssemblyReference.cache
+C:\Projects\OhmCalculator\OhmCalculator.api\obj\Debug\netcoreapp2.2\OhmCalculator.api.csproj.CoreCompileInputs.cache
+C:\Projects\OhmCalculator\OhmCalculator.api\obj\Debug\netcoreapp2.2\OhmCalculator.api.RazorAssemblyInfo.cache
+C:\Projects\OhmCalculator\OhmCalculator.api\obj\Debug\netcoreapp2.2\OhmCalculator.api.RazorAssemblyInfo.cs
+C:\Projects\OhmCalculator\OhmCalculator.api\obj\Debug\netcoreapp2.2\OhmCalculator.api.AssemblyInfoInputs.cache
+C:\Projects\OhmCalculator\OhmCalculator.api\obj\Debug\netcoreapp2.2\OhmCalculator.api.AssemblyInfo.cs
+C:\Projects\OhmCalculator\OhmCalculator.api\obj\Debug\netcoreapp2.2\OhmCalculator.api.RazorTargetAssemblyInfo.cache
+C:\Projects\OhmCalculator\OhmCalculator.api\obj\Debug\netcoreapp2.2\OhmCalculator.api.dll
+C:\Projects\OhmCalculator\OhmCalculator.api\obj\Debug\netcoreapp2.2\OhmCalculator.api.pdb

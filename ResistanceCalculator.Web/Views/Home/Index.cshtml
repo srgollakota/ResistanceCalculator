@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "Resistance Calculator";
+}
+
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@model ResistanceCalculator.Web.Models.ColorModel
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+        asp-fallback-test="window.jQuery"
+        crossorigin="anonymous"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+    // Dom Ready 
+    $(document).ready(function () {      
+        $("#divError").hide();
+        $("#divSuccess").hide();
+
+        $('select').find('option:first').attr('selected', 'selected');
+
+        $("select option").each(function () {
+            setBackgroundColor($(this));
+        });
+
+
+        $("#btnCalculateResistance").click(function () {
+
+            var data = JSON.stringify({
+                'bandAColor': $('#drpFirstBand').val(),
+                'bandBColor': $('#drpSecondBand').val(),
+                'bandCColor': $('#drpThirdBand').val(),
+                'bandDColor': $('#drpFourthBand').val()
+            });
+
+
+            // Post Method to calculate Resistance value
+            $.ajax({
+                type: "POST",
+                url: "@Configuration.GetSection("ApplicationSettings")["url"]",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: data,
+                success: function (result) {
+                    //error
+                    if (result.error != undefined) {
+                        $("#divSuccess").hide();
+                        $("#divError").show();
+                        $("#spnErrorText").text(result.error);                     
+                    }
+                    else {
+                        $('select').val("");                        
+                        $("#divError").empty().hide();                        
+                        $("#divSuccess").show().delay(10000).fadeOut();
+                        $("#spnMinResistance").text(result.minimumResistance);
+                        $("#spnMaxResistance").text(result.maximumResistance);
+                    }
+                }
+            });
+        });
+
+                          
+        function setBackgroundColor(element) {            
+
+            if (element.val() != '') {
+                element.css('background-color', element.val());
+
+                switch (element.val()) {
+                    case "black":
+                        color = "white";
+                        break;
+                    case "red":
+                        color = "white";
+                        break;
+                    case "green":
+                        color = "white";
+                        break;
+                    case "brown":
+                        color = "white";
+                        break;
+                    case "blue":
+                        color = "white";
+                        break;
+                    case "gray":
+                        color = "white";
+                        break;
+                    default:
+                      
+                }
+           
+            }
+        }
+    });
+
+
+
+</script>
+
+<h1>Resistance Calculator</h1>
+<hr />
+<h4 style="text-align: justify;">A convenient tool to calculate resistance in OHMS</h4>
+
+
+<div class="Container">
+    <form class="form-horizontal">
+
+        <div id="divError" class="container">
+            <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <strong><span id="spnErrorText"></span></strong>
+            </div>
+        </div>
+
+        <div id="divSuccess" class="container">
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <p>Minimum Resistance : <strong><span id="spnMinResistance"></span></strong></p>
+                <p>Maximum Resistance : <strong><span id="spnMaxResistance"></span></strong></p>
+            </div>
+        </div>
+        <div class="resistor">
+            <div class="left"></div>
+            <div id="divBandFirst" class="band"></div>
+            <div id="divBandSecond" class="band"></div>
+            <div id="divBandThird" class="band"></div>
+            <div id="divBandFourth" class="band"></div>
+            <div class="right"></div>
+        </div>
+
+       
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">1st Band:</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(m => m.Bands, new SelectList(Model.Bands, "Key", "Value"), htmlAttributes: new { @class = "form-control", id = "drpFirstBand" }, optionLabel: " - Select Color - ")
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">2nd Band:</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(m => m.Bands, new SelectList(Model.Bands, "Key", "Value"), htmlAttributes: new { @class = "form-control", id = "drpSecondBand" }, optionLabel: " - Select Color - ")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Multiplier:</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(m => m.Multipliers, new SelectList(Model.Multipliers, "Key", "Value"), htmlAttributes: new { @class = "form-control", id = "drpThirdBand" }, optionLabel: " - Select Color - ")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Tolerance:</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(m => m.Tolerance, new SelectList(Model.Tolerance, "Key", "Value"), htmlAttributes: new { @class = "form-control", id = "drpFourthBand" }, optionLabel: " - Select Color - ")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-outline-primary" id="btnCalculateResistance">Calculate</button>
+            </div>
+        </div>      
+    </form>
+</div>
+
